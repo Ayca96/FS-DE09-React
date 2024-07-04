@@ -2,6 +2,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+//import { Button } from "bootstrap";
 
 //! react alanında döngü olarak sadece map desteklenir,condition lardan da sadece ternary desteklenir.
 
@@ -10,19 +12,24 @@ const MyCard = ({ veri }) => {
 
   console.log(veri);
 
+  //!alttaki ilk return react ın ekrana bastırılan kısmı.Reacta ait yani.
+
   return (
     <Container>
-      <Row>
-        {veri.map((a) => {
+      <Row className="g-3 text-center">
+        {veri.map(({name,text,img,id}) => {
+
+           //!arrow (map) süslü kullandığında return ister.reactta süslü koymayabilirsiniz, o zaman returne de ihtiyaç olmaz. Bu da map methodunun return ü.
+
+            //?database den çekilen veriler ekrana bastırılırken, en dış div unique bir veri ister bunu da key={id} şeklinde yazarız. id olmak zorunda değil unique herhangi bir property olabilir, mesela img. 
           return (
-            <Col>
+            <Col className="d-flex justify-content-center col-sm-12 col-md-6 col-lg-4" key={id}>
               <Card style={{ width: "18rem" }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
+                <Card.Img variant="top" src={img} />
                 <Card.Body>
-                  <Card.Title>Card Title</Card.Title>
+                  <Card.Title>{name}</Card.Title>
                   <Card.Text>
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
+                    {text}
                   </Card.Text>
                   <Button variant="primary">Go somewhere</Button>
                 </Card.Body>
