@@ -25,4 +25,4 @@ const Person = (props) => {
   )
 }
 
-export default Person
+export default Person;
