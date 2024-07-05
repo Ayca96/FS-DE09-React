@@ -6,7 +6,7 @@ const Card = () => {
     <div className="container">
       {veri.map((item) => {
         return (
-          <div className="card">
+          <div className="card" key={item.id}>
             <h1>{item.name}</h1>
             <h2>{item.job}</h2>
             <p>{item.comment}</p>
@@ -24,3 +24,27 @@ const Card = () => {
 };
 
 export default Card;
+
+/*const Card = () => {
+  return (
+    <div className="container">
+      {veri.map((item) => {
+        return (
+          <div className="card" key={item.id}>
+            <h1>{item.name}</h1>
+            <h2>{item.job}</h2>
+            <p>{item.comment}</p>
+            <img src={item.img} alt={item.img} />
+
+            <div className="btn-div">
+              <button className="btn-div--small">Small</button>
+              <button className="btn-div--large">Large</button>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default Card;*/
