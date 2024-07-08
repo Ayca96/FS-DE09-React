@@ -15,8 +15,6 @@ margin: 1rem;
 
 
     .price{
-
-
       position: absolute;
       top: 50%;
       left: 50%;
@@ -26,6 +24,7 @@ margin: 1rem;
       padding: $cardPadding;
       font-size: 0.9rem;
       border-radius: $borderRadius;
+      z-index: 2;
 
     }
 
@@ -47,7 +46,7 @@ margin: 1rem;
       font-size: 1.2rem;
       padding: $cardPadding;
       border-radius: $borderRadius;
-      color:darken(white,50%);
+      color:darken(white,50%); // darken verilen rengi siliklestirir.
       background-color: $cardBgColor;
 
     }
