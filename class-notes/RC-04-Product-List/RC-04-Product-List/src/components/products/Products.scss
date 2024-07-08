@@ -1,0 +1,32 @@
+@import "../../scss/variables";
+@import "../../scss/mixins";
+
+
+.ürün-list{
+
+@include flexxx(row,space-evenly,2rem);
+margin: 1rem;
+
+  .card{
+    width: 350px;
+
+    .price{
+      color: red;
+    }
+
+
+    img{
+      width: 100%;
+    }
+
+    &_over{
+      width: 100%;
+
+    }
+
+  }
+
+
+
+
+}
