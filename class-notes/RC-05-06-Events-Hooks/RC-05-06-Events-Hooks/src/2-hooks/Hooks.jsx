@@ -17,6 +17,7 @@
 //* =============================================================
 
 import { useState } from "react";
+import Events from "../1-events-hooksintro/Events";
 
 const Hooks = () => {
   const [sayac, setSayac] = useState(0);
@@ -27,38 +28,64 @@ const Hooks = () => {
     renk: "red",
   });
 
+  const [toggle, setToggle] = useState(true);
+
   const arttir = () => {
     //sayac = sayac+1
     // setSayac(5); // sayac = 5
     setSayac(sayac + 1); // burda da tikladikca 1 artiyor.
   };
 
+  //! 1.Yol
+  // const changeAll = () => {
+
+  //   if (kisi.isim === "ayca") {
+  //     setKisi({
+  //       isim: "ayse",
+  //       meslek: "fullstack",
+  //       yas: 33,
+  //       renk: "green",
+  //     });
+  //   } else {
+  //     setKisi({
+  //       isim: "ayca",
+  //       meslek: "developer",
+  //       yas: 27,
+  //       renk: "red",
+  //     });
+  //   }
+  // };
+
+  //!2.Yol
+
   const changeAll = () => {
-    //! 1.Yol
-    if (kisi.isim === "ayca") {
-      setKisi({
-        isim: "ayse",
-        meslek: "fullstack",
-        yas: 33,
-        renk: "green",
-      });
-    } else {
+
+    setToggle(!toggle)
+
+    if (toggle) {
       setKisi({
         isim: "ayca",
         meslek: "developer",
         yas: 27,
         renk: "red",
       });
+    } else {
+      setKisi({
+        isim: "ayse",
+        meslek: "fullstack",
+        yas: 33,
+        renk: "green",
+      });
     }
   };
 
-  const changeName = ()=>{
-setKisi ({
-...kisi,isim:"osman",renk:"magenta"
-})
-
-  }
-
+  const changeName = () => {
+    setKisi({
+      ...kisi,
+      isim: "osman",
+      renk: "magenta",
+    });
+  };
 
   return (
     <div className="container text-center">
@@ -74,11 +101,27 @@ setKisi ({
         <h2>{kisi.meslek}</h2>
         <h3>{kisi.yas}</h3>
       </div>
-      <button onClick={changeAll} className="btn btn-primary">
+      <button onClick={changeAll} className="btn btn-primary m-2">
         CHANGEall
       </button>
-      <button onClick={changeName} className="btn btn-info">CHANGEname</button>
-      <button className="btn btn-success" onClick={()=>setKisi({...kisi,yas:30})}>CHANGEyas</button>
+      <button onClick={changeName} className="btn btn-info">
+        CHANGEname
+      </button>
+      <button
+        className="btn btn-success m-2"
+        onClick={() => setKisi({ ...kisi, yas: 30 })}
+      >
+        CHANGEyas
+      </button>
+      <button onClick={() => setToggle(!toggle)} className="btn btn-secondary">
+        SHOW
+      </button>
+
+      {
+        toggle && <Events /> // short circuit yaptik.
+      }
+
+      {/* {toggle? <Events/>  : ""}  Burasi Ternary yöntemi,Ternary yerine daha kisa oldu.*/}
     </div>
   );
 };
