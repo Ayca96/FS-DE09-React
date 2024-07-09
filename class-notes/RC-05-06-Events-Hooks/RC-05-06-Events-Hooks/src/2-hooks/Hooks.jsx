@@ -62,7 +62,8 @@ const Hooks = () => {
 
     setToggle(!toggle)
 
-    if (toggle) {
+
+    if (!toggle) {
       setKisi({
         isim: "ayca",
         meslek: "developer",
