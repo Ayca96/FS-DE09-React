@@ -16,13 +16,71 @@
 //?    https://react.dev/reference/react/hooks#state-hooks
 //* =============================================================
 
-
-
+import { useState } from "react";
 
 const Hooks = () => {
-  return (
-    <div>Hooks</div>
-  )
-}
+  const [sayac, setSayac] = useState(0);
+  const [kisi, setKisi] = useState({
+    isim: "ayca",
+    meslek: "developer",
+    yas: 27,
+    renk: "red",
+  });
 
-export default Hooks
+  const arttir = () => {
+    //sayac = sayac+1
+    // setSayac(5); // sayac = 5
+    setSayac(sayac + 1); // burda da tikladikca 1 artiyor.
+  };
+
+  const changeAll = () => {
+    //! 1.Yol
+    if (kisi.isim === "ayca") {
+      setKisi({
+        isim: "ayse",
+        meslek: "fullstack",
+        yas: 33,
+        renk: "green",
+      });
+    } else {
+      setKisi({
+        isim: "ayca",
+        meslek: "developer",
+        yas: 27,
+        renk: "red",
+      });
+    }
+  };
+
+  const changeName = ()=>{
+setKisi ({
+...kisi,isim:"osman",renk:"magenta"
+})
+
+  }
+
+
+  return (
+    <div className="container text-center">
+      <h1>*********************</h1>
+      <h1>USE STATE</h1>
+      <h2 className="text-danger">COUNT:{sayac}</h2>
+      <button onClick={arttir} className="btn-primary">
+        ARTTIR
+      </button>
+      <h1 className="mt-5">USESTATE OBJECT KULLANIMI</h1>
+      <div style={{ color: kisi.renk }}>
+        <h1>{kisi.isim}</h1>
+        <h2>{kisi.meslek}</h2>
+        <h3>{kisi.yas}</h3>
+      </div>
+      <button onClick={changeAll} className="btn btn-primary">
+        CHANGEall
+      </button>
+      <button onClick={changeName} className="btn btn-info">CHANGEname</button>
+      <button className="btn btn-success" onClick={()=>setKisi({...kisi,yas:30})}>CHANGEyas</button>
+    </div>
+  );
+};
+
+export default Hooks;
