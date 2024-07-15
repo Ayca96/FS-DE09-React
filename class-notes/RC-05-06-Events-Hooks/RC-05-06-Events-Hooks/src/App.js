@@ -13,12 +13,12 @@ function App() {
   return (
     <div className='App'>
     {/* <Events/> */}
-    {/* <Hooks/> */}
+    <Hooks/>
     {/* <Counter/> */}
     {/* <Form/> */}
     {/* <FormObject/> */}
     {/* <MouseEvents/> */}
-    <Keyboard/>
+    {/* <Keyboard/> */}
     </div>
   );
 }
