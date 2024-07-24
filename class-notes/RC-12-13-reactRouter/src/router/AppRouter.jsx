@@ -11,6 +11,7 @@ import NotFound from "../pages/NotFound";
 import CardDetails from "../pages/CardDetails";
 import FS from "../pages/FS";
 import AWS from "../pages/AWS";
+import PrivateRouter from './PrivateRouter';
 
 const AppRouter = () => {
   return (
@@ -29,7 +30,17 @@ const AppRouter = () => {
 
           <Route path="/courses" element={<CourseCard />} />
           <Route path="/courses/:name" element={<CardDetails />} />
-          <Route path="/contact" element={<ContactForm />} />
+
+            {/* şifre kontrolü ile girilebilecek sayfalar için PrivateRouter a yönlendirdir */}
+            <Route path="/contact" element={<PrivateRouter/>}>
+
+            <Route path="" element={<ContactForm />} />
+
+            </Route>
+
+
+          {/* <Route path="/contact" element={<ContactForm />} /> */}
+
 
           <Route path="/paths" element={<Paths />}>
             <Route path="/paths/fs" element={<FS/>}></Route>
