@@ -1,36 +1,42 @@
 
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NotFound from './NotFound';
 
 const TeacherDetails = () => {
 
-//! 1.Yol
+//! 1.Yol**********
 
-const {id}= useParams();
+// const {id}= useParams();
 
-// path ile yollana id useParams hook u ile yakalandi.
+// // path ile yollana id useParams hook u ile yakalandi.
 
-console.log(id);
+// console.log(id);
 
-const [person, setPerson] = useState({});
-const [error,setError]= useState(false);
+// const [person, setPerson] = useState({});
+// const [error,setError]= useState(false);
 
   
-useEffect(() => {
-  axios
-    .get(`https://jsonplaceholder.typicode.com/users/${id}`)
-    .then((res) => setPerson(res.data)).catch((err)=>setError(true));
-}, [id]);
+// useEffect(() => {
+//   axios
+//     .get(`https://jsonplaceholder.typicode.com/users/${id}`)
+//     .then((res) => setPerson(res.data)).catch((err)=>setError(true));
+// }, [id]);
 // console.log(person);
 
+//! ***************
 
-  if(error){
-    return <NotFound/>
-  }
+ // Error durumlarindaalttaki gibi js alanina yazilarak error sayfasina yönlendirme
+// yapilabilir.  
 
+  // if(error){
+  //   return <NotFound/>
+  // }
 
+//! 2. Yol **********************
+
+const {state:{person}}=useLocation();
 
   return (
     <div className='container text-center mt-4'>
