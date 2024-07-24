@@ -1,7 +1,9 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const CardDetails = () => {
+
+const navigate = useNavigate() // butonlarda navigate kullanildi.
 
 const {state:{a}}= useLocation()
 
@@ -15,6 +17,13 @@ const {state:{a}}= useLocation()
       <h4 className='text-danger'>{a.yorum}</h4>
 
 
+    </div>
+    <div>
+      <button onClick={()=>navigate(-1)}
+      className='btn btn-warning'>GO BACK</button>
+
+      <button onClick={()=>navigate("/")}
+      className='btn btn-primary'>GO HOME</button>
     </div>
     </div>
   )
