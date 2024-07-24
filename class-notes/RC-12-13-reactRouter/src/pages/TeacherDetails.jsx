@@ -2,6 +2,7 @@
 import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import NotFound from './NotFound';
 
 const TeacherDetails = () => {
 
@@ -14,20 +15,30 @@ const {id}= useParams();
 console.log(id);
 
 const [person, setPerson] = useState({});
+const [error,setError]= useState(false);
 
   
 useEffect(() => {
   axios
     .get(`https://jsonplaceholder.typicode.com/users/${id}`)
-    .then((res) => setPerson(res.data));
+    .then((res) => setPerson(res.data)).catch((err)=>setError(true));
 }, [id]);
+// console.log(person);
 
-  console.log(person);
+
+  if(error){
+    return <NotFound/>
+  }
+
+
+
   return (
-    <div>
-    <img style={{ width: '250px', height: '250px', borderRadius: '50%' }} src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${id}`} alt="" />
+    <div className='container text-center mt-4'>
+    <img  src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${person.name}`} alt="" />
       <h3>{person.name}</h3>
       <h2>{person.email}</h2>
+      <h5>{person.website}</h5>
+      <h5>{person.phone}</h5>
     </div>
   )
 }
