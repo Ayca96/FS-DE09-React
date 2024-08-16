@@ -4,59 +4,67 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { createContext } from "react";
 
-export const RecipeContext=createContext();
+export const RecipeContext = createContext();
 
-const RecipeProvider=({children})=>{
+const RecipeProvider = ({ children }) => {
+  //! login ve privaterouter sayfalarinda gerekli usestat actik.
 
-//! login ve privaterouter sayfalarinda gerekli usestat actik.
+  const [name, setName] = useState(localStorage.getItem("username") || "");
+  const [password, setPassword] = useState(
+    localStorage.getItem("password") || ""
+  );
 
-const [name, setName] = useState(localStorage.getItem("username") || "")
-const [password, setPassword] = useState(localStorage.getItem("password") || "")
+  const APP_ID = "bfbb3efc";
+  const APP_KEY = "43faeee790f26cd82b28050d3031619d";
 
-const APP_ID = "bfbb3efc";
-const APP_KEY = "43faeee790f26cd82b28050d3031619d";
+  //! HOME, HEADER RECIPECARD ICIN GEREKLI OLAN VERILER.
 
-//! HOME, HEADER RECIPECARD ICIN GEREKLI OLAN VERILER.
+  const [recipes, setRecipes] = useState([]);
+  const [query, setQuery] = useState("pie");
+  const [mealType, setMealType] = useState("Breakfast");
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-const [recipes,setRecipes]=useState([])
-const [query,setQuery]=useState("pie")
-const [mealType,setMealType]=useState("Breakfast")
+  const url = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&mealType=${mealType}`;
 
-const [loading, setLoading] = useState(false)
-const [error, setError] = useState(false)
+  const getData = async () => {
+    setLoading(true);
 
-const url = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&mealType=${mealType}`;
+    try {
+      const { data } = await axios.get(url);
 
-const getData= async () =>{
+      setRecipes(data.hits);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-const {data} = await axios.get(url)
+  if (error) {
+    return <p>Something went wrong...</p>;
+  }
 
-setRecipes (data.hits)
-console.log(data.hits);
-console.log(data);
-console.log(recipes);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-
-
-
-}
-
-
-
-
-return(
-
-<RecipeContext.Provider value={{name,password,setName,setPassword,setQuery,setMealType,recipes,getData}} >
-
-
-{children}
-
-
-</RecipeContext.Provider>
-
-
-)
-
-}
+  return (
+    <RecipeContext.Provider
+      value={{
+        name,
+        password,
+        setName,
+        setPassword,
+        setQuery,
+        setMealType,
+        recipes,
+        getData,
+      }}
+    >
+      {children}
+    </RecipeContext.Provider>
+  );
+};
 export default RecipeProvider;
