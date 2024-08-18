@@ -19,3 +19,6 @@ const App = () => {
 };
 
 export default App;
+
+
+// Bu bir nottur 
