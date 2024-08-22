@@ -1,5 +1,13 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import React, { createContext } from "react";
+import { 
+  createUserWithEmailAndPassword, 
+  GoogleAuthProvider, 
+  onAuthStateChanged, 
+  signInWithEmailAndPassword, 
+  signInWithPopup,signOut,
+  updateProfile 
+} from "firebase/auth";
+
+import React, { createContext, useEffect, useState } from "react";
 import { auth } from "../auth/firebase";
 import { toastError, toastSuccess } from "../helpers/ToastNotify";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +18,17 @@ export const AuthContextt = createContext();
 const AuthContext = ({ children }) => {
   const navigate = useNavigate();
 
+  const [currentUser, setCurrentUser] = useState()
+
+  //!Bu sayfaya login, register, google icin gelindiginde sadece tek seferligine user kontrolü yapan fonksiyonu calistirir.
+
+  useEffect(() => {
+    
+  userTakip();
+    
+  }, [])
+  
+
   //!register için (sitede zincir yapılı fetch işlemi var biz burada async await i tercih ettik)
 
   const createUser = async (email, password,displayName) => {
@@ -18,6 +37,15 @@ const AuthContext = ({ children }) => {
 
       toastSuccess("Registered Successfully");
       navigate("/");
+
+
+      //? USERTAKİPTEN SONRA -----kullanıcı profilini güncellemek için kullanılan firebase metodu, login logout da userTakip sayesinde güncelleniyor ama register da isim güncellemesi yok, o da bu şekilde oluyor.alttakini yazmazsam (register ile girdiğimde) navbarda displayName i göremem. alttakini yazmazsam sadece google ile girersem görürüm .
+
+      await updateProfile(auth.currentUser, {displayName: displayName})
+
+
+
+
     } catch (error) {
       toastError(`${error.message} yanlis girdiniz.`);
     }
@@ -38,8 +66,51 @@ const AuthContext = ({ children }) => {
     
   }
 
+
+  //!google ile giriş
+
+  //* https://console.firebase.google.com/
+
+  const signUpGoogle = () => {
+    //?google hesaplarına ulaşmak için firebase metodu
+    const provider = new GoogleAuthProvider();
+
+    //?açılır pencere ile giriş yapılması için firebase metodu
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        toastSuccess("Google ile giris basarili.")
+        navigate("/")
+      })
+      .catch((error) => {
+        console.log(error);
+        
+      });
+  };
+
+  //? Kullanıcının signin olup olmadığını takip eden ve kullanıcı değiştiğinde yeni kullanıcıyı response olarak dönen firebase metodu. bir kere çalıştır login logout takip eder.login ile bilgiler gelir bizde burada currentUser ın içine atarız, signout olunca bilgiler gider bizde currentUser ın içini güncelleriz (register ve logindeki email vs ye navbardan ulaşabilmek için). google ile giriş yapınca user ile displayname gelir ama email ile girecekseniz en üstte update kodunu firebase den çağırmalısınız.(user observer = kullanici gözlemleyici)
+
+  const userTakip=()=>{
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const{email,displayName,photoURL}= user
+       setCurrentUser(email,displayName,photoURL)
+      } else {
+        setCurrentUser(false)
+      }
+    });
+    
+    }
+
+    //! Siteden cikis 
+    const cikis=()=>{
+      signOut(auth)
+      toastSuccess("Logout is successfully")
+    }
+    
+
   return (
-    <AuthContextt.Provider value={{ createUser,signIn }}>
+    <AuthContextt.Provider value={{ createUser,signIn,signUpGoogle,currentUser,cikis}}>
       {children}
     </AuthContextt.Provider>
   );
