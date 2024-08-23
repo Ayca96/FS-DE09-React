@@ -108,6 +108,24 @@ const AuthContext = ({ children }) => {
       toastSuccess("Logout is successfully")
     }
     
+    // const forgotPassword = (email) => {
+    //   //? Email yoluyla şifre sıfırlama için kullanılan firebase metodu
+    //   sendPasswordResetEmail(auth, email)
+    //     .then(() => {
+    //       // Password reset email sent!
+    //       toastWarn("Please check your mail box!");
+    //       // alert("Please check your mail box!");
+    //     })
+    //     .catch((err) => {
+    //       toastError(err.message);
+    //       // alert(err.message);
+    //       // ..
+    //     });
+    // };
+    
+
+
+
 
   return (
     <AuthContextt.Provider value={{ createUser,signIn,signUpGoogle,currentUser,cikis}}>

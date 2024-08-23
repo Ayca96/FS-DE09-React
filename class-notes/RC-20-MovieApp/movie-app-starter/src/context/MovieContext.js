@@ -15,12 +15,12 @@ const MovieContext = ({children}) => {
 
   useEffect(()=>{
 
-    getirMovies()
+    getirMovies(BASE_URL)
   },[])
 
-  const getirMovies=()=>{
+  const getirMovies=(API_ADDRESS)=>{
     setLoading(true)
-    axios.get(BASE_URL)
+    axios.get(API_ADDRESS)
     .then((res)=>setMovies(res.data.results))
     .catch((err)=>console.log(err)).finally(()=>setLoading(false))
     
@@ -29,7 +29,7 @@ const MovieContext = ({children}) => {
 
 
   return (
-    <MovieContextt.Provider value={{movies,loading}}>
+    <MovieContextt.Provider value={{movies,loading,getirMovies}}>
     {children}
     </MovieContextt.Provider>
   )
