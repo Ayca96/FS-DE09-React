@@ -20,4 +20,4 @@ export default HoverandFocus
 
 
 
-// "hover:shadow-[0_4px_6px_-1px_rgba(255,0,0,0.5)]"  özel stil belirlemek icin square bracket notion kullanilir.
+// "hover:shadow-[0_4px_6px_-1px_rgba(255,0,0,0.5)]"  özel stil belirlemek icin square bracket notion kullanilir. Ve bu cok önemlidir.
