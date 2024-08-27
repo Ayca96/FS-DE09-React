@@ -18,8 +18,10 @@ switch (type) {
     case "SIL":
       return {gorevler: state.gorevler.filter((item)=>item !== payload)}
 
-      // case "DEGISTIR":
-      //   return {gorevler:[...state.gorevler, { completed:false}]}  
+      case "DEGISTIR":
+        return {gorevler: state.gorevler.map((item) =>
+          item.id === payload ? { ...item, completed: !item.completed } : item
+        ),}  
 
         //görevlerdeki completed kismini degistir
    

@@ -20,7 +20,7 @@ const dispatch=useDispatch()
             src={okLogo}
             className="ok-logo"
             alt="ok logo"
-            onClick={()=>dispatch(degistir(gorev))}
+            onClick={()=>dispatch(degistir(gorev.id))}
             // tiklaninca tikladigi veriyi gönder 
      
           />
