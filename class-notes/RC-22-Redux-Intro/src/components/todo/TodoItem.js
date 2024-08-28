@@ -40,3 +40,5 @@ const dispatch=useDispatch()
 };
 
 export default TodoItem;
+
+// redux önemli.
