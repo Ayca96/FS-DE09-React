@@ -36,7 +36,7 @@ const Main = () => {
             className="inline-block w-8 h-8 text-blue-600 border-4 rounded-full spinner-border animate-spin mt-52"
             role="status"
           >
-            <span className="visually-hidden">Yükleniyor...</span>
+            <span className="visually-hidden">Laden...</span>
           </div>
         ) : (
           movies.map((movie) => <MovieCard key={movie.id} {...movie} />)

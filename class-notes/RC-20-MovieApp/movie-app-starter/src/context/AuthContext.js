@@ -73,12 +73,15 @@ const AuthContext = ({ children }) => {
 
   const signUpGoogle = () => {
     //?google hesaplarına ulaşmak için firebase metodu
+
     const provider = new GoogleAuthProvider();
 
     //?açılır pencere ile giriş yapılması için firebase metodu
 
     signInWithPopup(auth, provider)
       .then((result) => {
+        console.log(result);
+        
         toastSuccess("Google ile giris basarili.")
         navigate("/")
       })
